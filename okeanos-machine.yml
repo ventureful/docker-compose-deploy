@@ -1,8 +1,8 @@
 ---
-- name: Create a test environment
+- name: Deploy ~okeanos machine
   hosts: localhost
   tasks:
-    - name: create instance
+    - name: Create OpenStack instance
       os_server:
         state: present
         cloud: mariachicloud
