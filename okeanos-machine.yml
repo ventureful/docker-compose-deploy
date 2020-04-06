@@ -5,7 +5,10 @@
     - name: Create OpenStack instance
       os_server:
         state: present
-        cloud: mariachicloud
+        auth:
+          auth_url: https://identity.example.com
+          username: admin
+          password: admin
         name: test-instance
         image: CentOS-7-x86_64-GenericCloud
         key_name: mariachi-pub-key
