@@ -15,9 +15,7 @@
         name: test-instance
         image: CentOS-7-x86_64-GenericCloud
         key_name: mariachi-pub-key
-        timeout: 200
         flavor: m1.small
-        network: test-network
         auto_ip: yes
         security_groups:
           - test-security-group
