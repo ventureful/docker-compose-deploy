@@ -6,9 +6,12 @@
       os_server:
         state: present
         auth:
-          auth_url: https://identity.example.com
-          username: admin
-          password: admin
+          # Parameters available at ~okeanos dashboard > API access
+          auth_url: https://accounts.okeanos.grnet.gr/identity/v2.0
+          username: 8b18ad6e-34fb-42c4-911b-c0517fbfee57
+          # The password is stored in an environment variable
+          # and not here for security reasons.
+          password: "{{ lookup('env','OS_PASSWORD') }}"
         name: test-instance
         image: CentOS-7-x86_64-GenericCloud
         key_name: mariachi-pub-key
