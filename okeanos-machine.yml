@@ -22,3 +22,11 @@
         key_name: pothitos
         security_groups:
           - default
+      register: new_instance
+
+- name: Interact with instance
+  hosts: "{{ new_instance.server.public_v4 }}"
+  tasks:
+    - name: Print distribution name
+      debug:
+        msg: "{{ ansible_distribution }}"
