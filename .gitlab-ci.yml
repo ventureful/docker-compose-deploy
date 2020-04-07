@@ -1,0 +1,9 @@
+Check and Deploy:
+  image: python:3.8.2
+  before_script:
+    - pip install openstacksdk==0.46.0 \
+                  ansible-lint \
+                  ansible==2.9.6
+  script:
+    - ansible-lint okeanos-machine.yml
+    - ansible-playbook okeanos-machine.yml
