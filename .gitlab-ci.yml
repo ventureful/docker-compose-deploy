@@ -1,9 +1,19 @@
-Check and Deploy:
-  image: python:3.8.2
+stages:
+  - Analyze code
+  - Deploy
+
+image: python:3.8.2
+
+Lint:
+  stage: Analyze code
   before_script:
-    - pip install openstacksdk==0.46.0 \
-                  ansible-lint \
-                  ansible==2.9.6
+    - pip install ansible-lint
   script:
     - ansible-lint okeanos-machine.yml
+
+Deploy:
+  stage: Deploy
+  before_script:
+    - pip install openstacksdk==0.46.0 ansible==2.9.6
+  script:
     - ansible-playbook okeanos-machine.yml
