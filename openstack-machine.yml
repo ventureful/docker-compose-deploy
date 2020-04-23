@@ -20,9 +20,15 @@
         image: ccfb0b8b-3f40-4f1d-b78c-b5c59e59e5ad
         key_name: pothitos
       register: new_instance
+    - name: Add new instance to inventory
+      add_host:
+        name: "{{ new_instance.server.public_v4 }}"
+        groups: new_instances
+        # The username for the SSH connections
+        ansible_user: user
 
 - name: Interact with instance
-  hosts: "{{ new_instance.server.public_v4 }}"
+  hosts: new_instances
   tasks:
     - name: Print distribution name
       debug:
