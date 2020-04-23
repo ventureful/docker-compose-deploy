@@ -16,6 +16,6 @@ Deploy:
   stage: Deploy
   before_script:
     - chmod 700 .
-    - pip install openstacksdk==0.46.0 ansible==2.9.6
+    - pip install openstacksdk==0.46.0 ansible==2.9.7
   script:
     - ansible-playbook openstack-machine.yml
