@@ -30,6 +30,6 @@
 - name: Interact with instance
   hosts: new_instances
   tasks:
-    - name: Print distribution name
+    - name: Print distribution information
       debug:
-        msg: "{{ ansible_distribution }}"
+        var: ansible_lsb
