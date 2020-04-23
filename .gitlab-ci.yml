@@ -10,7 +10,7 @@ Lint:
     - chmod 700 .
     - pip install ansible-lint
   script:
-    - ansible-lint okeanos-machine.yml
+    - ansible-lint openstack-machine.yml
 
 Deploy:
   stage: Deploy
@@ -18,4 +18,4 @@ Deploy:
     - chmod 700 .
     - pip install openstacksdk==0.46.0 ansible==2.9.6
   script:
-    - ansible-playbook okeanos-machine.yml
+    - ansible-playbook openstack-machine.yml

@@ -1,5 +1,5 @@
 ---
-- name: Deploy ~okeanos machine
+- name: Deploy OpenStack machine
   hosts: localhost
   tasks:
     - name: Create OpenStack instance
