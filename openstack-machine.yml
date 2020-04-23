@@ -18,10 +18,7 @@
         name: My machine
         flavor: C8R8192D60drbd
         image: ccfb0b8b-3f40-4f1d-b78c-b5c59e59e5ad
-        auto_ip: yes
         key_name: pothitos
-        security_groups:
-          - default
       register: new_instance
 
 - name: Interact with instance
