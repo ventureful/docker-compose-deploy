@@ -29,7 +29,12 @@
 
 - name: Interact with instance
   hosts: new_instances
+  gather_facts: no
   tasks:
+    - name: Wait for remote SSH service
+      wait_for_connection:
+    - name: Gathering facts
+      setup:
     - name: Print distribution information
       debug:
         var: ansible_lsb
