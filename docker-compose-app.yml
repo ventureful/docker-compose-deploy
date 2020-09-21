@@ -1,0 +1,7 @@
+---
+- name: Deploy Docker Compose App
+  hosts: localhost
+  tasks:
+    - name: Print distribution information
+      debug:
+        var: ansible_lsb

@@ -1,8 +1,8 @@
-# Deploy OpenStack Machine
+# Deploy Docker Compose App
 
-  + This Ansible Playbook aims to create an OpenStack
-    instance.
-  + It has been tested successfully in a private cloud.
-  + It is parameterized for the ~okeanos cloud.
-  + But does not work, as they don't support the
-    `openstack image list` command.
+  + This Ansible Playbook aims to checkout and deploy an
+    application that is based on Docker Compose.
+  + It installs Docker.
+  + It installs Docker Compose.
+  + It clones the application from a Git repository.
+  + Executes it via Docker Compose.

@@ -10,12 +10,12 @@ Lint:
     - chmod 700 .
     - pip install ansible-lint
   script:
-    - ansible-lint openstack-machine.yml
+    - ansible-lint docker-compose-app.yml
 
 Deploy:
   stage: Deploy
   before_script:
     - chmod 700 .
-    - pip install openstacksdk==0.46.0 ansible==2.9.7
+    - pip install ansible==2.9.7
   script:
-    - ansible-playbook openstack-machine.yml
+    - ansible-playbook docker-compose-app.yml
