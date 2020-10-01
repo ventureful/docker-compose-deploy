@@ -1,23 +1,10 @@
-stages:
-  - Analyze code
-  - Deploy
-
-image: python:3.8.2
-
-Lint:
-  stage: Analyze code
+Simulate:
+  image: ubuntu:18.04
   before_script:
-    - chmod 700 .
-    - pip install ansible-lint
+    - apt update
+    - apt install -y software-properties-common=0.96.24.32.14
+    - apt-add-repository --yes --update ppa:ansible/ansible
+    - apt install -y ansible-lint ansible=2.9.13-1ppa~bionic
   script:
-    - ansible-lint docker-compose-app.yml
-  rules:
-    - allow_failure: true
-
-Deploy:
-  stage: Deploy
-  before_script:
-    - chmod 700 .
-    - pip install ansible==2.9.7
-  script:
+    - "! ansible-lint docker-compose-app.yml"
     - ansible-playbook docker-compose-app.yml
