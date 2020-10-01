@@ -1,9 +1,18 @@
+Lint:
+  image: python
+  before_script:
+    - chmod 700 .
+    - pip install ansible-lint
+  script:
+    - ansible-lint docker-compose-app.yml
+  rules:
+    - allow_failure: true
+
 Simulate:
   image: ubuntu:18.04
   before_script:
     - apt update
     - apt install -y python-pip
-    - pip install ansible-lint ansible==2.9.13
+    - pip install ansible==2.9.13
   script:
-    - "! ansible-lint docker-compose-app.yml"
     - ansible-playbook docker-compose-app.yml
