@@ -2,9 +2,8 @@ Simulate:
   image: ubuntu:18.04
   before_script:
     - apt update
-    - apt install -y software-properties-common=0.96.24.32.14
-    - apt-add-repository --yes --update ppa:ansible/ansible
-    - apt install -y ansible-lint ansible=2.9.13-1ppa~bionic
+    - apt install -y python-pip
+    - pip install ansible-lint ansible==2.9.13
   script:
     - "! ansible-lint docker-compose-app.yml"
     - ansible-playbook docker-compose-app.yml
