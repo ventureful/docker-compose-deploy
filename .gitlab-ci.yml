@@ -18,4 +18,5 @@ Simulate:
         pip install ansible==2.10.0;
       fi
   script:
-    - ansible-playbook docker-compose-app.yml
+    - ansible-playbook --inventory localhost, --connection=local
+      docker-compose-app.yml

@@ -1,6 +1,6 @@
 ---
 - name: Deploy Docker Compose App
-  hosts: localhost
+  hosts: all
   tasks:
     - name: Update the apt package index
       become: yes
