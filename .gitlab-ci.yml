@@ -12,11 +12,9 @@ Simulate:
   image: ubuntu:18.04
   before_script:
     - chmod 700 .
-    - if ! ansible --version; then
-        apt update;
-        apt install -y python-pip;
-        pip install ansible==2.10.0;
-      fi
+    - apt update
+    - apt install -y python-pip
+    - pip install ansible==2.10.0
   script:
     - ansible-playbook --inventory localhost, --connection=local
       docker-compose-app.yml
