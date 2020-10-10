@@ -13,8 +13,8 @@ Simulate:
   before_script:
     - chmod 700 .
     - apt update
-    - apt install -y python-pip
-    - pip install ansible==2.10.0
+    - apt install -y python3-pip
+    - pip3 install ansible==2.10.0
   script:
     - ansible-playbook --inventory localhost, --connection=local
       docker-compose-app.yml
