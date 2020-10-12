@@ -7,7 +7,7 @@
   + It clones the application from a Git repository.
   + Executes it via Docker Compose.
 
-To execute it, run
+To execute the playbook, run
 
 ```sh
 ansible-playbook --inventory <target_host>, docker-compose-app.yml
