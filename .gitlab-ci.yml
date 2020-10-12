@@ -5,8 +5,6 @@ Lint:
     - pip install ansible-lint
   script:
     - ansible-lint docker-compose-app.yml
-  rules:
-    - allow_failure: true
 
 Simulate:
   image: ubuntu:18.04
