@@ -4,8 +4,7 @@
     application that is based on Docker Compose.
   + It installs Docker.
   + It installs Docker Compose.
-  + It clones the application from a Git repository.
-  + Executes it via Docker Compose.
+  + It executes the Docker Compose application.
 
 To execute the playbook, run
 
