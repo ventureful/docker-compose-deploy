@@ -1,4 +1,5 @@
 Lint:
+  stage: test
   image: python
   before_script:
     - chmod 700 .
@@ -7,6 +8,7 @@ Lint:
     - ansible-lint docker-compose-app.yml
 
 Simulate:
+  stage: test
   image: ubuntu:18.04
   before_script:
     - chmod 700 .
@@ -16,3 +18,21 @@ Simulate:
   script:
     - ansible-playbook --inventory localhost, --connection=local
       docker-compose-app.yml
+
+Trigger Stack master:
+  stage: deploy
+  trigger: TrendDotFarm/stack
+  variables:
+    TAG_DEPLOYMENT: "latest"
+    DEPLOYMENT_ONLY: "TRUE"
+  only:
+    - master
+
+Trigger Stack:
+  stage: deploy
+  trigger: TrendDotFarm/stack
+  variables:
+    TAG_DEPLOYMENT: $CI_COMMIT_REF_SLUG
+    DEPLOYMENT_ONLY: "TRUE"
+  except:
+    - master
