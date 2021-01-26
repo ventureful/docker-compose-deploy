@@ -23,6 +23,11 @@ Simulate:
   script:
     - ansible-playbook --inventory localhost, --connection=local
       docker-compose-app.yml
+    - until docker-compose logs print-hello-world | grep -q "Hello, world!";
+      do
+        sleep 1;
+        echo -n .;
+      done
 
 Build-master:
   stage: deploy

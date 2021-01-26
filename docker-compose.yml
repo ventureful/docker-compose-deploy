@@ -1,0 +1,5 @@
+version: "3"
+services:
+  print-hello-world:
+    image: alpine:3.13.0
+    command: echo "Hello, world!"
