@@ -1,10 +1,11 @@
 # Deploy Docker Compose App
 
-  + This Ansible Playbook aims to checkout and deploy an
-    application that is based on Docker Compose.
-  + It installs Docker.
-  + It installs Docker Compose.
-  + It executes the Docker Compose application.
+This Ansible Playbook aims to deploy an application that is based on Docker
+Compose.
+
+  + Installs Docker
+  + Installs Docker Compose
+  + Executes the Docker Compose application
 
 To execute the playbook, run
 
