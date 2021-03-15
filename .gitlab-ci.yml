@@ -3,7 +3,7 @@ Lint:
   image: python
   before_script:
     - chmod 700 .
-    - pip install ansible-lint
+    - pip install ansible-lint==4.3.7
   script:
     - ansible-lint docker-compose-app.yml
 
