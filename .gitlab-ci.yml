@@ -1,3 +1,8 @@
+stages:
+  - test
+  - deploy
+  - deploy privately
+
 Lint:
   stage: test
   image: python
@@ -19,8 +24,36 @@ Simulate:
     - ansible-playbook --inventory localhost, --connection=local
       docker-compose-app.yml
 
-Trigger Stack master:
+Build-master:
   stage: deploy
+  image: docker:20.10.1
+  services:
+    - docker:20.10.1-dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
+      "$CI_REGISTRY"
+  script:
+    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
+    - docker push "$CI_REGISTRY_IMAGE"
+  only:
+    - master
+
+Build:
+  stage: deploy
+  image: docker:20.10.1
+  services:
+    - docker:20.10.1-dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
+      "$CI_REGISTRY"
+  script:
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME" .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME"
+  except:
+    - master
+
+Trigger Stack master:
+  stage: deploy privately
   trigger:
     project: TrendDotFarm/stack
     strategy: depend
@@ -31,7 +64,7 @@ Trigger Stack master:
     - master
 
 Trigger Stack:
-  stage: deploy
+  stage: deploy privately
   trigger:
     project: TrendDotFarm/stack
     strategy: depend
