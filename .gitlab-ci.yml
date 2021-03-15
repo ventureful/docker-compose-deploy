@@ -21,7 +21,9 @@ Simulate:
 
 Trigger Stack master:
   stage: deploy
-  trigger: TrendDotFarm/stack
+  trigger:
+    project: TrendDotFarm/stack
+    strategy: depend
   variables:
     TAG_DEPLOYMENT: "latest"
     DEPLOYMENT_ONLY: "TRUE"
@@ -30,7 +32,9 @@ Trigger Stack master:
 
 Trigger Stack:
   stage: deploy
-  trigger: TrendDotFarm/stack
+  trigger:
+    project: TrendDotFarm/stack
+    strategy: depend
   variables:
     TAG_DEPLOYMENT: $CI_COMMIT_REF_SLUG
     DEPLOYMENT_ONLY: "TRUE"
