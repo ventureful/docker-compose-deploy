@@ -1,7 +1,7 @@
 # Deploy Docker Compose App
 
-This Ansible Playbook aims to deploy an application that is based on Docker
-Compose.
+This Ansible Playbook aims to deploy an application that is based on
+Docker Compose.
 
   + Installs Docker
   + Installs Docker Compose
@@ -13,5 +13,5 @@ To execute the playbook, run
 ansible-playbook --inventory <target_host>, docker-compose-app.yml
 ```
 
-Don't forget the comma! `<target_host>` can be an IP address
-or a domain.
+Don't forget the comma! `<target_host>` can be an IP address or a
+domain.
