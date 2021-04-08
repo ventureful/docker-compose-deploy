@@ -22,7 +22,7 @@ Simulate:
     - pip3 install ansible==2.10.0
   script:
     - ansible-playbook --inventory localhost, --connection=local
-      docker-compose-app-playbook.yml
+       -e username=root docker-compose-app-playbook.yml
     - timeout 10s sh -c
       'until docker-compose logs print-hello-world | grep -q "Hello, world!";
        do

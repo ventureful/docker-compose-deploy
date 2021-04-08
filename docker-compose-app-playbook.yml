@@ -1,6 +1,8 @@
 ---
 - name: Deploy Docker Compose App
   hosts: all
+  # The username of the machines you're going to use
+  remote_user: "{{ username }}"
   become: true
   tasks:
     - name: Install aptitude using apt
