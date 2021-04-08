@@ -10,7 +10,7 @@ Lint:
     - chmod 700 .
     - pip install ansible-lint==4.3.7
   script:
-    - ansible-lint docker-compose-app.yml
+    - ansible-lint
 
 Simulate:
   stage: test
@@ -22,7 +22,7 @@ Simulate:
     - pip3 install ansible==2.10.0
   script:
     - ansible-playbook --inventory localhost, --connection=local
-      docker-compose-app.yml
+      docker-compose-app-playbook.yml
     - timeout 10s sh -c
       'until docker-compose logs print-hello-world | grep -q "Hello, world!";
        do

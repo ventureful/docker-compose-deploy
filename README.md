@@ -10,7 +10,7 @@ Docker Compose.
 To execute the playbook, run
 
 ```sh
-ansible-playbook --inventory <target_host>, docker-compose-app.yml
+ansible-playbook --inventory <target_host>, docker-compose-app-playbook.yml
 ```
 
 Don't forget the comma! `<target_host>` can be an IP address or a
