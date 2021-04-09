@@ -1,10 +1,10 @@
 stages:
-  - test
-  - deploy
-  - deploy privately
+  - Test
+  - Docker Image
+  - Deploy
 
 Lint:
-  stage: test
+  stage: Test
   image: python
   before_script:
     - chmod 700 .
@@ -13,7 +13,7 @@ Lint:
     - ansible-lint
 
 Simulate:
-  stage: test
+  stage: Test
   image: ubuntu:18.04
   before_script:
     - chmod 700 .
@@ -31,7 +31,7 @@ Simulate:
        done'
 
 Build:
-  stage: deploy
+  stage: Docker Image
   image: docker:20.10.5
   services:
     - docker:20.10.5-dind
@@ -50,7 +50,7 @@ Build:
     - docker push "$CI_REGISTRY_IMAGE${tag}"
 
 Trigger Stack master:
-  stage: deploy privately
+  stage: Deploy
   trigger:
     project: TrendDotFarm/stack
     strategy: depend
@@ -61,7 +61,7 @@ Trigger Stack master:
     - master
 
 Trigger Stack:
-  stage: deploy privately
+  stage: Deploy
   trigger:
     project: TrendDotFarm/stack
     strategy: depend
