@@ -8,8 +8,8 @@ Simulate:
   image: ubuntu:18.04
   before_script:
     - chmod 700 .
-    - apt update
-    - apt install -y python3-pip
+    - apt-get update -qq
+    - apt-get install -y python3-pip > /dev/null
     - pip3 install ansible-lint==5.0.7 ansible==3.2.0
   script:
     - ansible-lint
