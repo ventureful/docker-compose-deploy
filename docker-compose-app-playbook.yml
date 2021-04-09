@@ -27,8 +27,15 @@
     - name: Update apt and install docker-ce
       apt: update_cache=yes name=docker-ce
 
+    - name: Upgrade pip
+      pip:
+        name: pip
+        extra_args: --upgrade
+
     - name: Install docker-compose
-      get_url:
-        url: https://github.com/docker/compose/releases/download/1.29.0/docker-compose-Linux-x86_64
-        dest: /usr/local/bin/docker-compose
-        mode: 'u+x,g+x'
+      pip:
+        name: docker-compose
+
+    - name: Create and start services
+      community.docker.docker_compose:
+        project_src: .
