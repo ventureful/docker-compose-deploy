@@ -21,7 +21,7 @@ Simulate:
     - ansible-playbook --inventory localhost, --connection=local
        -e username=root docker-compose-app-playbook.yml
     - timeout 10s sh -c
-      'until docker-compose logs print-hello-world | grep -q "Hello, world!";
+      'until docker-compose logs print-hello-world | grep "Hello, world!";
        do
          sleep 1;
          echo -n .;
