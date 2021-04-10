@@ -1,3 +1,6 @@
+variables:
+  ANSIBLE_VERSION: 3.2.0
+
 stages:
   - Test
   - Docker Image
@@ -15,7 +18,7 @@ Simulate:
     - chmod 700 .
     - apt-get update -qq
     - apt-get install -y python3-pip > /dev/null
-    - pip3 install -q ansible-lint==5.0.7 ansible==3.2.0
+    - pip3 install -q ansible-lint==5.0.7 ansible==$ANSIBLE_VERSION
   script:
     - ansible-lint
     - ansible-playbook --user root --inventory localhost, --connection=local
@@ -43,7 +46,8 @@ Build:
       else
         tag=":$CI_COMMIT_REF_NAME"
       fi
-    - docker build --pull -t "$CI_REGISTRY_IMAGE${tag}" .
+    - docker build --pull -t "$CI_REGISTRY_IMAGE${tag}"
+        --build-arg ANSIBLE_VERSION .
     - docker push "$CI_REGISTRY_IMAGE${tag}"
 
 Trigger Stack master:
