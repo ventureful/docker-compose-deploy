@@ -10,7 +10,7 @@ Docker Compose.
 To execute the playbook, run
 
 ```sh
-ansible-playbook --inventory <target_host>, -e username=<user> \
+ansible-playbook --user <user> --inventory <target_host>, \
   docker-compose-app-playbook.yml
 ```
 
