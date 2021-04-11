@@ -3,10 +3,10 @@ variables:
 
 stages:
   - Test
-  - Docker Image
+  - Build
   - Deploy
 
-Simulate:
+Locally:
   stage: Test
   image: ubuntu:18.04
   services:
@@ -30,8 +30,8 @@ Simulate:
          echo -n .;
        done'
 
-Build:
-  stage: Docker Image
+Docker Image:
+  stage: Build
   image: docker:20.10.5
   services:
     - docker:20.10.5-dind
