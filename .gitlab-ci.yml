@@ -50,24 +50,24 @@ Docker Image:
         --build-arg ANSIBLE_VERSION .
     - docker push "$CI_REGISTRY_IMAGE${tag}"
 
-Trigger Stack master:
+.deployment_definition:
+  before_script:
+    # Remove variables that already exist in image
+    - rm ansible.cfg docker-compose-app-playbook.yml
+  script:
+    - ansible-playbook --user user --inventory $REMOTE_HOST,
+      /usr/src/app/docker-compose-app-playbook.yml
+
+Remotely master:
   stage: Deploy
-  trigger:
-    project: TrendDotFarm/stack
-    strategy: depend
-  variables:
-    TAG_DEPLOYMENT: "latest"
-    DEPLOYMENT_ONLY: "TRUE"
+  image: registry.gitlab.com/trenddotfarm/deploy-docker-compose-app
+  extends: .deployment_definition
   only:
     - master
 
-Trigger Stack:
+Remotely:
   stage: Deploy
-  trigger:
-    project: TrendDotFarm/stack
-    strategy: depend
-  variables:
-    TAG_DEPLOYMENT: "$CI_COMMIT_REF_NAME"
-    DEPLOYMENT_ONLY: "TRUE"
+  image: registry.gitlab.com/trenddotfarm/deploy-docker-compose-app:$CI_COMMIT_REF_NAME
+  extends: .deployment_definition
   except:
     - master
