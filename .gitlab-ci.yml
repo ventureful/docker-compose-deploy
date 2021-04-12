@@ -24,11 +24,11 @@ Locally:
     - ansible-playbook --user root --inventory localhost, --connection=local
       docker-compose-app-playbook.yml
     - timeout 10s sh -c
-      'until docker-compose logs print-hello-world | grep "Hello, world!";
+      "until docker-compose logs print-hello-world | grep 'Hello, world!';
        do
          sleep 1;
          echo -n .;
-       done'
+       done"
 
 Docker Image:
   stage: Build
