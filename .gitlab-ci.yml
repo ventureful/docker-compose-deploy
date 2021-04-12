@@ -54,9 +54,21 @@ Docker Image:
   before_script:
     # Remove variables that already exist in image
     - rm ansible.cfg docker-compose-app-playbook.yml
+    - mkdir ~/.ssh
+    - cp $ID_RSA ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
   script:
     - ansible-playbook --user "$REMOTE_USER" --inventory "$REMOTE_HOST,"
       /usr/src/app/docker-compose-app-playbook.yml
+    - timeout 10s sh -c
+      "until ssh $REMOTE_USER@$REMOTE_HOST docker-compose logs print-hello-world |
+         grep 'Hello, world!';
+       do
+         sleep 1;
+         echo -n .;
+       done"
+  after_script:
+    - ssh $REMOTE_USER@$REMOTE_HOST docker-compose down
 
 Remotely master:
   stage: Deploy
