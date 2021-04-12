@@ -55,7 +55,7 @@ Docker Image:
     # Remove variables that already exist in image
     - rm ansible.cfg docker-compose-app-playbook.yml
   script:
-    - ansible-playbook --user user --inventory $REMOTE_HOST,
+    - ansible-playbook --user user --inventory "$REMOTE_HOST,"
       /usr/src/app/docker-compose-app-playbook.yml
 
 Remotely master:
