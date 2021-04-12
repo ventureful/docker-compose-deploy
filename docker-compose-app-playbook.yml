@@ -5,10 +5,14 @@
   gather_facts: no
   tasks:
     - name: Install aptitude using apt
-      apt: name=aptitude update_cache=yes force_apt_get=yes
+      apt:
+        name: aptitude
+        update_cache: yes
+        force_apt_get: yes
 
     - name: Install required system packages
-      apt: name={{ item }}
+      apt:
+        name: "{{ item }}"
       loop: ['apt-transport-https', 'ca-certificates', 'curl',
              'software-properties-common', 'python3-pip', 'virtualenv',
              'python3-setuptools']
@@ -24,7 +28,9 @@
         state: present
 
     - name: Update apt and install docker-ce
-      apt: update_cache=yes name=docker-ce
+      apt:
+        name: docker-ce
+        update_cache: yes
 
     - name: Upgrade pip
       pip:
