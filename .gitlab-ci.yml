@@ -11,6 +11,7 @@ Locally:
   image: ubuntu:18.04
   services:
     - docker:20.10.5-dind
+  # GitLab.com variables for docker-in-docker
   variables:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_DRIVER: overlay2
