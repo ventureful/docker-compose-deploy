@@ -62,14 +62,16 @@ Docker Image:
     - ansible-playbook --user "$REMOTE_USER" --inventory "$REMOTE_HOST,"
       /usr/src/app/docker-compose-app-playbook.yml
     - timeout 10s sh -c
-      "until ssh $REMOTE_USER@$REMOTE_HOST docker-compose logs print-hello-world |
+      "until ssh $REMOTE_USER@$REMOTE_HOST docker-compose
+         --project-directory $CI_PROJECT_NAME logs print-hello-world |
          grep 'Hello, world!';
        do
          sleep 1;
          echo -n .;
        done"
   after_script:
-    - ssh $REMOTE_USER@$REMOTE_HOST docker-compose down
+    - ssh $REMOTE_USER@$REMOTE_HOST docker-compose
+        --project-directory $CI_PROJECT_NAME down
 
 Remotely master:
   stage: Deploy
