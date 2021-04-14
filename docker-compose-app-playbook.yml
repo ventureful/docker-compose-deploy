@@ -23,12 +23,10 @@
     - name: Add Docker GPG apt key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
 
     - name: Add Docker repository
       apt_repository:
         repo: deb https://download.docker.com/linux/ubuntu bionic stable
-        state: present
 
     - name: Update apt and install docker-ce
       apt:
