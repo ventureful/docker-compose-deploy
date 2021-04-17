@@ -51,6 +51,20 @@ Docker Image:
         --build-arg ANSIBLE_VERSION .
     - docker push "$CI_REGISTRY_IMAGE${tag}"
 
+Remotely master:
+  stage: Deploy
+  image: registry.gitlab.com/trenddotfarm/deploy-docker-compose-app
+  extends: .deployment_definition
+  only:
+    - master
+
+Remotely:
+  stage: Deploy
+  image: registry.gitlab.com/trenddotfarm/deploy-docker-compose-app:$CI_COMMIT_REF_NAME
+  extends: .deployment_definition
+  except:
+    - master
+
 .deployment_definition:
   before_script:
     # Remove variables that already exist in image
@@ -72,17 +86,3 @@ Docker Image:
   after_script:
     - ssh $REMOTE_USER@$REMOTE_HOST sudo docker-compose
         --project-directory $CI_PROJECT_NAME down
-
-Remotely master:
-  stage: Deploy
-  image: registry.gitlab.com/trenddotfarm/deploy-docker-compose-app
-  extends: .deployment_definition
-  only:
-    - master
-
-Remotely:
-  stage: Deploy
-  image: registry.gitlab.com/trenddotfarm/deploy-docker-compose-app:$CI_COMMIT_REF_NAME
-  extends: .deployment_definition
-  except:
-    - master
