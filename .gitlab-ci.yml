@@ -1,5 +1,5 @@
 variables:
-  ANSIBLE_VERSION: 3.2.0
+  ANSIBLE_VERSION: 4.8.0
 
 stages:
   - Test
