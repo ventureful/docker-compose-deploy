@@ -11,10 +11,14 @@ Locally:
   image: ubuntu:18.04
   services:
     - docker:20.10.10-dind
-  # GitLab.com variables for docker-in-docker
   variables:
+    # GitLab.com variables for docker-in-docker
     DOCKER_HOST: tcp://docker:2375
     DOCKER_DRIVER: overlay2
+    # Variables for Ansible installation
+    # https://github.com/pypa/pip/issues/10219#issuecomment-887337037
+    LANG: C.UTF-8
+    LC_ALL: C.UTF-8
   before_script:
     - chmod 700 .
     - apt-get update -qq
