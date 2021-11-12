@@ -1,4 +1,4 @@
-FROM python:3.9.4
+FROM python:3.10.0
 ARG ANSIBLE_VERSION
 RUN pip install --no-cache-dir ansible==$ANSIBLE_VERSION
 COPY ansible.cfg /etc/ansible/
