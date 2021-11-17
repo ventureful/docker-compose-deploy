@@ -66,6 +66,16 @@
         - .env
         - docker-compose.yml
 
+    - name: Upload configuration if available
+      become: no
+      vars:
+        configuration: "{{ local_dir }}/configuration.yml"
+      copy:
+        src: "{{ configuration }}"
+        dest: "{{ remote_dir }}"
+        mode: 0600
+      when: configuration is file
+
     - name: Create and start services
       community.docker.docker_compose:
         project_src: "{{ remote_dir }}"
