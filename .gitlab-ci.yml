@@ -1,5 +1,5 @@
 variables:
-  ANSIBLE_VERSION: 4.8.0
+  ANSIBLE_VERSION: 4.10.0
 
 stages:
   - Test
@@ -23,7 +23,7 @@ Locally:
     - chmod 700 .
     - apt-get update -qq
     - apt-get install -y python3-pip > /dev/null
-    - pip3 install -q ansible-lint==5.2.1 ansible==$ANSIBLE_VERSION
+    - pip3 install -q ansible-lint==5.4.0 ansible==$ANSIBLE_VERSION
   script:
     - ansible-lint
     - ansible-playbook --user root --inventory localhost, --connection=local
