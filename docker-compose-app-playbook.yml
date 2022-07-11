@@ -1,8 +1,8 @@
 ---
 - name: Deploy Docker Compose App
   hosts: all
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
   vars:
     local_dir: "{{ lookup('env','PWD') }}"
     remote_dir: "/home/{{ ansible_user }}/{{ local_dir | basename }}"
@@ -10,38 +10,38 @@
     iptables_remote: "{{ remote_dir }}/iptables.txt"
   tasks:
     - name: Install aptitude using apt
-      apt:
+      ansible.builtin.apt:
         name: aptitude
-        update_cache: yes
-        force_apt_get: yes
+        update_cache: true
+        force_apt_get: true
 
     - name: Install required system packages
-      apt:
+      ansible.builtin.apt:
         name: "{{ item }}"
       loop: ['apt-transport-https', 'ca-certificates', 'curl',
              'software-properties-common', 'python3-pip', 'virtualenv',
              'python3-setuptools']
 
     - name: Add Docker GPG apt key
-      apt_key:
+      ansible.builtin.apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
 
     - name: Add Docker repository
-      apt_repository:
+      ansible.builtin.apt_repository:
         repo: deb https://download.docker.com/linux/ubuntu bionic stable
 
     - name: Update apt and install docker-ce
-      apt:
+      ansible.builtin.apt:
         name: docker-ce
-        update_cache: yes
+        update_cache: true
 
     - name: Upgrade pip
-      pip:
+      ansible.builtin.pip:
         name: pip
         extra_args: --upgrade
 
     - name: Install docker-compose
-      pip:
+      ansible.builtin.pip:
         name: docker-compose
 
     - name: Log in to GitLab Docker registry if available
@@ -52,15 +52,15 @@
       when: lookup('env','CI_REGISTRY') | length > 0
 
     - name: Create target directory
-      become: no
-      file:
+      become: false
+      ansible.builtin.file:
         path: "{{ remote_dir }}"
         state: directory
         mode: 0700
 
     - name: Upload docker-compose definitions
-      become: no
-      copy:
+      become: false
+      ansible.builtin.copy:
         src: "{{ local_dir }}/{{ item }}"
         dest: "{{ remote_dir }}"
         mode: 0600
@@ -69,18 +69,18 @@
         - docker-compose.yml
 
     - name: Upload configuration if available
-      become: no
+      become: false
       vars:
         configuration: "{{ local_dir }}/configuration.yml"
-      copy:
+      ansible.builtin.copy:
         src: "{{ configuration }}"
         dest: "{{ remote_dir }}"
         mode: 0600
       when: configuration is file
 
     - name: Upload iptables if available
-      become: no
-      copy:
+      become: false
+      ansible.builtin.copy:
         src: "{{ iptables }}"
         dest: "{{ remote_dir }}"
         mode: 0600
@@ -100,4 +100,4 @@
     - name: Create and start services
       community.docker.docker_compose:
         project_src: "{{ remote_dir }}"
-        pull: yes
+        pull: true
