@@ -55,19 +55,19 @@ Docker Image:
         --build-arg ANSIBLE_VERSION .
     - docker push "$CI_REGISTRY_IMAGE${tag}"
 
-Remotely master:
+Remotely main:
   stage: Deploy
   image: registry.gitlab.com/trenddotfarm/deploy-docker-compose-app
   extends: .deployment_definition
   only:
-    - master
+    - main
 
 Remotely:
   stage: Deploy
   image: registry.gitlab.com/trenddotfarm/deploy-docker-compose-app:$CI_COMMIT_REF_NAME
   extends: .deployment_definition
   except:
-    - master
+    - main
 
 .deployment_definition:
   before_script:
