@@ -69,35 +69,6 @@
         - .env
         - docker-compose.yml
 
-    - name: Upload configuration if available
-      become: false
-      vars:
-        configuration: "{{ local_dir }}/configuration.yml"
-      ansible.builtin.copy:
-        src: "{{ configuration }}"
-        dest: "{{ remote_dir }}"
-        mode: 0600
-      when: configuration is file
-
-    - name: Upload iptables if available
-      become: false
-      ansible.builtin.copy:
-        src: "{{ iptables }}"
-        dest: "{{ remote_dir }}"
-        mode: 0600
-      when: iptables is file
-
-    # Load new rules by appending them to the current ones
-    - name: Restore firewall state from a file
-      community.general.iptables_state:
-        state: restored
-        path: "{{ iptables_remote }}"
-        noflush: true
-      # Rollback in case of access loss
-      async: "{{ ansible_timeout }}"
-      poll: 0
-      when: iptables is file
-
     - name: Create and start services
       community.docker.docker_compose:
         project_src: "{{ remote_dir }}"
