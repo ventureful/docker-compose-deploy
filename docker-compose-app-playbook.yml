@@ -9,6 +9,7 @@
     iptables: "{{ local_dir }}/iptables.txt"
     iptables_remote: "{{ remote_dir }}/iptables.txt"
   tasks:
+
     - name: Install aptitude using apt
       ansible.builtin.apt:
         name: aptitude

@@ -3,9 +3,9 @@
 This Ansible Playbook aims to deploy an application that is based on
 Docker Compose.
 
-  + Installs Docker
-  + Installs Docker Compose
-  + Executes the Docker Compose application
+ - Installs Docker
+ - Installs Docker Compose
+ - Executes the Docker Compose application
 
 To execute the playbook, run
 
