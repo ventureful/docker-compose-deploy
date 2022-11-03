@@ -12,9 +12,8 @@ Locally:
   services:
     - docker:20.10.10-dind
   variables:
-    # GitLab.com variables for docker-in-docker
+    # GitLab.com variable for Docker in Docker
     DOCKER_HOST: tcp://docker:2375
-    DOCKER_DRIVER: overlay2
     # Variables for Ansible installation
     # https://github.com/pypa/pip/issues/10219#issuecomment-887337037
     LANG: C.UTF-8
