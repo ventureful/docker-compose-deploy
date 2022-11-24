@@ -56,14 +56,14 @@ Docker Image:
 
 Remotely main:
   stage: Deploy
-  image: registry.gitlab.com/trenddotfarm/deploy-docker-compose-app
+  image: registry.gitlab.com/socileaks/deploy-docker-compose-app
   extends: .deployment_definition
   only:
     - main
 
 Remotely:
   stage: Deploy
-  image: registry.gitlab.com/trenddotfarm/deploy-docker-compose-app:$CI_COMMIT_REF_NAME
+  image: registry.gitlab.com/socileaks/deploy-docker-compose-app:$CI_COMMIT_REF_NAME
   extends: .deployment_definition
   except:
     - main
