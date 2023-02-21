@@ -10,7 +10,7 @@ Locally:
   stage: Test
   image: ubuntu:18.04
   services:
-    - docker:20.10.10-dind
+    - docker:23.0.1-dind
   variables:
     # GitLab.com variable for Docker in Docker
     DOCKER_HOST: tcp://docker:2375
@@ -36,9 +36,9 @@ Locally:
 
 Docker Image:
   stage: Build
-  image: docker:20.10.10
+  image: docker:23.0.1
   services:
-    - docker:20.10.10-dind
+    - docker:23.0.1-dind
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
       "$CI_REGISTRY"
