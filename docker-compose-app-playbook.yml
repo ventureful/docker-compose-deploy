@@ -10,6 +10,21 @@
     iptables_remote: "{{ remote_dir }}/iptables.txt"
   tasks:
 
+    # https://stackoverflow.com/a/73932621
+    - name: Upgrade pip
+      ansible.builtin.pip:
+        name: pip
+        extra_args: --upgrade
+    - name: Check if problematic file exists
+      ansible.builtin.stat:
+        path: /usr/lib/python3/dist-packages/OpenSSL/crypto.py
+      register: problematic_stat
+    - name: Upgrade pyopenssl
+      ansible.builtin.pip:
+        name: pyopenssl
+        extra_args: --upgrade
+      when: problematic_stat.stat.exists
+
     - name: Install aptitude using apt
       ansible.builtin.apt:
         name: aptitude
@@ -35,11 +50,6 @@
       ansible.builtin.apt:
         name: docker-ce
         update_cache: true
-
-    - name: Upgrade pip
-      ansible.builtin.pip:
-        name: pip
-        extra_args: --upgrade
 
     - name: Install docker-compose
       ansible.builtin.pip:
