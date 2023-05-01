@@ -10,7 +10,7 @@ Locally:
   stage: Test
   image: ubuntu:18.04
   services:
-    - docker:23.0.1-dind
+    - docker:23.0.5-dind
   variables:
     # GitLab.com variable for Docker in Docker
     DOCKER_HOST: tcp://docker:2375
@@ -28,7 +28,7 @@ Locally:
     - ansible-playbook --user root --inventory localhost, --connection=local
       docker-compose-app-playbook.yml
     - timeout 10s sh -c
-      "until docker-compose logs print-hello-world | grep 'Hello, world!';
+      "until docker compose logs print-hello-world | grep 'Hello, world!';
        do
          sleep 1;
          echo -n .;
@@ -36,9 +36,9 @@ Locally:
 
 Docker Image:
   stage: Build
-  image: docker:23.0.1
+  image: docker:23.0.5
   services:
-    - docker:23.0.1-dind
+    - docker:23.0.5-dind
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
       "$CI_REGISTRY"
@@ -79,7 +79,7 @@ Remotely:
     - ansible-playbook --user "$REMOTE_USER" --inventory "$REMOTE_HOST,"
       /usr/src/app/docker-compose-app-playbook.yml
     - timeout 10s sh -c
-      "until ssh $REMOTE_USER@$REMOTE_HOST sudo docker-compose
+      "until ssh $REMOTE_USER@$REMOTE_HOST sudo docker compose
          --project-directory $CI_PROJECT_NAME logs print-hello-world |
          grep 'Hello, world!';
        do
@@ -87,5 +87,5 @@ Remotely:
          echo -n .;
        done"
   after_script:
-    - ssh $REMOTE_USER@$REMOTE_HOST sudo docker-compose
+    - ssh $REMOTE_USER@$REMOTE_HOST sudo docker compose
         --project-directory $CI_PROJECT_NAME down
